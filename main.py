@@ -12,10 +12,14 @@ def multiimageload(images):
 
 MEDIUM = pygame.font.Font("resources\Samson.ttf", 24)
 
+#Carregando imagens
+
 img_marker = pygame.image.load("resources\img_marker.png")
 img_flag = pygame.image.load("resources\img_flor1.png")
 img_bombsleft = MEDIUM.render("Bombs left: ", True, (255, 255, 255))
-img_spaces = multiimageload(["resources\img_empty.png", "resources\img_1.png", "resources\img_2.png", "resources\img_3.png", "resources\img_4.png", "resources\img_5.png", "resources\img_6.png", "resources\img_7.png", "resources\img_8.png", "resources\img_bomba1.png"])
+img_spaces = multiimageload(["resources\img_fundo.png", "resources\img_1.png", "resources\img_2.png", "resources\img_3.png", "resources\img_4.png", "resources\img_5.png", "resources\img_6.png", "resources\img_7.png", "resources\img_8.png", "resources\img_bomba1.png"])
+som_bomba = pygame.mixer.Sound('resources\explode.wav')
+
 
 class Game(object):
     def __init__(self, m, n, bombs):
@@ -38,6 +42,8 @@ class Game(object):
             for a in range(self.m):
                 self.seenboard[b].append(0)
         self.started = False
+
+# Montagem dos quadradinhos
 
     def start(self, x, y):
         self.started = True
@@ -98,6 +104,9 @@ class Game(object):
                     self.discover(x, y-1)
                 if y < self.n - 1:
                     self.discover(x, y+1)
+
+# Configurações da bandeirinha ( flor )
+
     def flag(self, x, y):
         if self.seenboard[x][y] == 0:
             self.seenboard[x][y] = -1
@@ -168,6 +177,7 @@ class Main(object):
                     self.mouseleft = "released"
                 elif event.button == 3:
                     self.mouseright = "released"
+
     def action(self):
         if self.mouseleft == "pressed":
             
@@ -178,6 +188,7 @@ class Main(object):
                             if self.game.seenboard[self.mouse_x // 32][(self.mouse_y - 32) // 32] == 0: 
                                 self.game.start(self.mouse_x // 32, (self.mouse_y - 32) // 32) 
                         if self.game.discover(self.mouse_x // 32, (self.mouse_y - 32) // 32) == "Bomb": 
+                            som_bomba.play()
                             self.lose()
                         if self.game.todiscover == 0:
                             self.win()
@@ -186,6 +197,7 @@ class Main(object):
                 if (self.mouse_x in range(0, self.game.m * 32)):
                     if (self.mouse_y in range(32, 32 + self.game.n * 32)):
                         self.game.flag(self.mouse_x // 32, (self.mouse_y - 32) // 32)
+                        
     def draw(self):
         screen = self.screen
         
@@ -207,7 +219,7 @@ class Main(object):
         for a in range(self.game.m):
             for b in range(self.game.n):
                 if self.game.seenboard[a][b] == 1:
-                    screen.blit(img_spaces[self.game.board[a][b]], (a * 32, 32 + b * 32))
+                    screen.blit(img_spaces[self.game.board[a][b]], (a * 32, 32 + b * 32))  
                 elif self.game.seenboard[a][b] == -1:
                     screen.blit(img_flag, (a * 32, 32 + b * 32))
         for a in range(self.game.m):
