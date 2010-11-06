@@ -17,7 +17,7 @@ MEDIUM = pygame.font.Font("resources\Samson.ttf", 24)
 img_marker = pygame.image.load("resources\img_marker.png")
 img_flag = pygame.image.load("resources\img_flor1.png")
 img_bombsleft = MEDIUM.render("Bombs left: ", True, (255, 255, 255))
-img_spaces = multiimageload(["resources\img_fundo.png", "resources\img_1.png", "resources\img_2.png", "resources\img_3.png", "resources\img_4.png", "resources\img_5.png", "resources\img_6.png", "resources\img_7.png", "resources\img_8.png", "resources\img_bomba1.png"])
+img_spaces = multiimageload(["resources\img_fundo.png", "resources\img_1.png", "resources\img_2.png", "resources\img_3.png", "resources\img_4.png", "resources\img_5.png", "resources\img_6.png", "resources\img_7.png", "resources\img_8.png", "resources\img_bomba2.png"])
 som_bomba = pygame.mixer.Sound('resources\explode.wav')
 
 
