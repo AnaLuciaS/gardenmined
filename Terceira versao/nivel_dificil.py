@@ -275,7 +275,8 @@ class Main(object):
                             if self.game.seenboard[(self.mouse_x -64) // 32][(self.mouse_y - 32) // 32] == 0: 
                                 self.game.start((self.mouse_x - 64) // 32, (self.mouse_y - 32) // 32) 
                         if self.game.discover((self.mouse_x - 64 )// 32, (self.mouse_y - 32) // 32) == "Bomb":
-                            som_bomba.play()
+                            if self.paused == False:
+                                som_bomba.play()
                             self.perder()
                             sair = True
                         if self.game.todiscover == 0:
